@@ -1,0 +1,2 @@
+# ktdsTraning
+MS AI-Python
