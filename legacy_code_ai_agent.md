@@ -1,9 +1,10 @@
-## 📘 프로젝트 기획서: AI 기반 레거시 & 현대 개발 지원 에이전트 (금융권 특화)
+## 프로젝트 기획서: AI 기반 레거시 & 현대 개발 지원 에이전트 (금융권 특화)
 
 ### 1. 프로젝트 개요
 
+- **추진배경**: 금융권중 정보계 서비스는 아직 COBOL로 되어 있는곳이 많고 언어전환 사업기회가 많음
 - **목표**: 금융권 개발자들이 사용하는 레거시 코드(COBOL 등)를 Python/Java로 자동 변환하고, 현대 개발에서 반복되는 작업(문서화, 테스트 생성, 코드 리뷰 등)을 자동화하는 AI 에이전트를 개발한다.
-- **형태**: 웹 기반 MVP 서비스 (Streamlit UI 또는 FastAPI Web App)
+- **형태**: 웹 기반 서비스 (Streamlit UI 사용)
 
 ---
 
@@ -23,25 +24,25 @@
 ### 3. 아키텍처 (Azure 기반)
 
 ```plaintext
-사용자 (Streamlit 또는 웹 UI)
+사용자 (Streamlit를 활용한 Web UI)
    ↓
 FastAPI Backend (Azure App Service)
    ├─▶ Azure OpenAI (GPT-4 / GPT-4-turbo)
    └─▶ Azure Cognitive Search (금융권 문서 기반 RAG)
 ```
 
-- **UI**: Streamlit 또는 React Web + API 연동
+- **UI**: Streamlit (향후 필요시 React Web + API 연동)
 - **Backend**: FastAPI (모듈화된 기능 API)
 - **LLM**: Azure OpenAI GPT-4 (코드 변환, 설명, 질의응답)
 - **RAG**: Azure AI Search + 금융권 개발 규정 문서
 
 ---
 
-### 4. 사용자 흐름 (MVP)
+### 4. 사용자 흐름
 
-1. 사용자가 COBOL 또는 Python 코드 입력
+1. 사용자가 COBOL 또는 Python 코드 입력(입력 방법은 화면에서 작성 또는 파일 업로드)
 2. 시스템 처리:
-   - COBOL → Python 코드 자동 변환
+   - COBOL → Python or JAVA 코드 자동 변환(선택에 따른)
    - 각 함수에 주석 및 설명 자동 추가
    - 테스트 코드 자동 생성
    - 금융권 가이드 문서 기반 규제 검토 (RAG)
@@ -55,7 +56,7 @@ FastAPI Backend (Azure App Service)
 
 ### 5. 초기 코드 스켈레톤
 
-#### 📁 디렉토리 구조
+#### 디렉토리 구조(안)
 
 ```plaintext
 project_root/
@@ -74,7 +75,7 @@ project_root/
 └── README.md
 ```
 
-#### 🧠 예시 FastAPI Endpoint (`convert.py`)
+#### 예시 FastAPI Endpoint (`convert.py`)
 
 ```python
 from fastapi import APIRouter, Request
@@ -119,9 +120,5 @@ async def convert_code(request: Request):
 
 ---
 
-> 이 문서는 초기 기획 및 기능 정의를 위한 기반 문서입니다. 실제 개발 및 테스트 과정에서 세부 기능이 조정될 수 있습니다.
-
----
-
-📥 **문서 다운로드 안내** 이 문서를 다운로드하려면 [우측 상단 메뉴 → "내보내기" → "PDF로 다운로드"] 또는 [파일 아이콘 → "다운로드"]를 클릭하세요.
-
+### 8. 최대 고려사항
+- 금융권은 폐쇄망으로 구성되어 있어 해당 서비스를 어떤 형식으로 제공 가능한지 확인 필요
